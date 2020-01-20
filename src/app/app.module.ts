@@ -13,6 +13,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { ChartsModule } from 'ng2-charts';
 import {NgxAutoScrollModule} from 'ngx-auto-scroll';
 import * as firebase from 'firebase';
+import {AgmCoreModule} from '@agm/core';
 
 
 // Pipes and Directives
@@ -60,8 +61,15 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { AdminComponent } from './admin/admin.component';
 import { GrouplistComponent } from './group/grouplist/grouplist.component';
 import { NotificationComponent } from './notification/notification.component';
+import { GmapsComponent } from './gmaps/gmaps.component';
+
 import { EventComponent } from './event/event.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { PasswdresetComponent } from './passwdreset/passwdreset.component';
+import { AddMembersComponent } from './add-members/add-members.component';
+import { GroupsearchComponent } from './groupsearch/groupsearch.component';
+
 
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -74,6 +82,11 @@ import {MatIconModule} from '@angular/material';
 import {MatNativeDateModule} from '@angular/material';
 import { PopupWindowComponent } from './popup-window/popup-window.component';
 import {MatDialogModule} from '@angular/material/dialog';
+
+
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { EventlistComponent } from './event/eventlist/eventlist.component';
+import {EventsService} from './services/events.service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -144,10 +157,16 @@ const routes: Routes = [
     component: PopupWindowComponent
   },
   {
-    path: '**',
-    redirectTo: '/home',
-    pathMatch: 'full'
+
+    path:'passwdreset',
+    component:PasswdresetComponent
+
   }
+  // {
+  //   path: '**',
+  //   redirectTo: '/home',
+  //   pathMatch: 'full'
+  // }
 ];
 
 
@@ -184,9 +203,15 @@ const routes: Routes = [
     AdminComponent,
     GrouplistComponent,
     NotificationComponent,
+    GmapsComponent,
     EventComponent,
-    PopupWindowComponent
-    ],
+    PopupWindowComponent,
+    PasswdresetComponent,
+    AddMembersComponent,
+    GroupsearchComponent,
+    EventlistComponent
+  ],
+
   imports: [
     BrowserModule,
     NgbModule,
@@ -209,10 +234,16 @@ const routes: Routes = [
     MatCheckboxModule,
     MatIconModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxMaterialTimepickerModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapsKey,
+      libraries: ['places']
+    })
   ],
   providers: [
     AuthService,
+    EventsService,
     UploadService,
     UserService,
     PostsService,
